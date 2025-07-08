@@ -1,0 +1,16 @@
+# Ignore Python cache and virtual environment
+__pycache__/
+*.pyc
+venv/
+
+# Ignore logs and database
+logs/
+*.log
+*.sqlite3
+
+# Ignore model weights
+models/*.pt
+
+# VSCode or system files
+.DS_Store
+.vscode/
