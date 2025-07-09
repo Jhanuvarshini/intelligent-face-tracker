@@ -91,25 +91,6 @@ Built for a hackathon organized by [Katomaran](https://katomaran.com).
   "exit_frame_threshold": 15
 }
 ```
-
----
-
-## 🖼️ Screenshots
-
-### 🎯 Tracker View (Live Face Detection)
-
-[![Tracker View](tracker_view.png)](tracker_view.png)
-
-### 🧾 SQLite DB Output
-
-[![SQLite Output](sqlite_output.png)](sqlite_output.png)
-
-### 📊 Dashboard UI
-
-[![Dashboard](dashboard.png)](dashboard.png)
-
----
-
 ## 🗃️ Folder Structure
 
 ```
