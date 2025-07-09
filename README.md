@@ -1,88 +1,165 @@
 
-# Intelligent Face Tracker
+# 🧠 Intelligent Face Tracking System
 
-This project is an AI-based face detection and tracking system to count unique visitors from a video stream.
+A real-time intelligent face recognition and tracking system using **YOLOv8**, **InsightFace**, **SQLite**, and **Flask**.  
+Built for a hackathon organized by [Katomaran](https://katomaran.com).
 
-## 🎯 Features
+---
 
-- 🔍 Real-time face detection using YOLOv8
-- 🧠 Face embedding using InsightFace (ArcFace model)
-- 🧭 Tracking with DeepSort/ByteTrack
-- 📌 Automatic face registration with unique ID
-- 📝 Logs entry & exit with cropped face, timestamp, and event type
-- 💾 Stores everything in local folders and a SQLite database
+## 🎥 Loom Video Demo
 
-## ⚙️ Tech Stack
+▶️ Watch here: [Loom Video Walkthrough](https://www.loom.com/share/631734a8f4954e29ae269a350b007d66)
 
-| Module           | Tech                              |
-|------------------|------------------------------------|
-| Face Detection   | YOLOv8                             |
-| Face Recognition | InsightFace (ArcFace)              |
-| Tracking         | DeepSort / ByteTrack               |
-| Backend          | Python                             |
-| DB & Storage     | SQLite, Filesystem                 |
-| Configuration    | JSON (`config.json`)               |
+---
 
-## 🛠️ Setup Instructions
+## 📦 Features
 
-```bash
-git clone https://github.com/YOUR_USERNAME/intelligent-face-tracker.git
-cd intelligent-face-tracker
-python -m venv venv
-venv\Scripts\activate       # On Windows
-pip install -r requirements.txt
+- Real-time face detection, recognition, and tracking via video input
+- Face entry & exit logging with:
+  - Timestamp
+  - Cropped face image
+  - Event type (entry/exit)
+  - Face ID
+- Local folder structure for face images
+- SQLite DB for all events
+- `events.log` for audit trail
+- Unique visitor count tracking
+- Minimal Flask dashboard UI with animated view
+
+---
+
+## 🏗️ Architecture
+
+[![Architecture Diagram](architecture_diagram.png)](architecture_diagram.png)
+
+---
+
+## ⚙️ Setup Instructions
+
+1. **Clone this repository**  
+   ```bash
+   git clone https://github.com/your-username/intelligent-face-tracker.git
+   cd intelligent-face-tracker
 ````
 
-## 🧾 Sample `config.json`
+2. **Create and activate virtual environment**
+
+   ```bash
+   python -m venv venv
+   venv\Scripts\activate
+   ```
+
+3. **Install dependencies**
+
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+4. **Place your video**
+   Save your input video (e.g., `input.mp4`) in the project root.
+
+5. **Run video tracker**
+
+   ```bash
+   python src/video_tracker.py
+   ```
+
+6. **Launch Flask dashboard**
+
+   ```bash
+   python src/app.py
+   ```
+
+---
+
+## ⚙️ Assumptions
+
+* Each unique face is assigned a new ID based on embedding similarity
+* A face is marked as "exit" if not seen for 15 consecutive frames
+* No face recognition on side profiles
+* Videos are processed sequentially
+* Webcam input is supported (by changing `VideoCapture(0)`)
+
+---
+
+## 🔧 Sample `config.json` (Optional Enhancement)
 
 ```json
 {
-  "frame_skip": 5,
-  "detection_threshold": 0.5,
-  "embedding_model": "arcface",
-  "face_size": [112, 112],
-  "db_path": "data/database.sqlite3",
-  "log_path": "logs/events.log"
+  "video_path": "input.mp4",
+  "similarity_threshold": 0.6,
+  "exit_frame_threshold": 15
 }
 ```
 
-## 📂 Project Structure
+---
+
+## 🖼️ Screenshots
+
+### 🎯 Tracker View (Live Face Detection)
+
+[![Tracker View](tracker_view.png)](tracker_view.png)
+
+### 🧾 SQLite DB Output
+
+[![SQLite Output](sqlite_output.png)](sqlite_output.png)
+
+### 📊 Dashboard UI
+
+[![Dashboard](dashboard.png)](dashboard.png)
+
+---
+
+## 🗃️ Folder Structure
 
 ```
 intelligent-face-tracker/
 │
-├── config/
-│   └── config.json
-├── data/
-│   ├── embeddings/
-│   ├── database.sqlite3
-│   └── registered_faces/
 ├── logs/
 │   ├── entries/
-│   ├── exits/
-│   └── events.log
-├── models/
-│   └── yolov8.pt
+│   ├── events.log
+│   └── face_data.db
+│
 ├── src/
-│   ├── detector.py
-│   ├── recognizer.py
-│   ├── tracker.py
-│   ├── logger.py
-│   ├── db.py
-│   ├── main.py
-│   └── utils.py
+│   ├── video_tracker.py
+│   ├── database.py
+│   ├── app.py
+│   └── ...
+│
+├── templates/
+│   └── index.html
+│
+├── input.mp4
 ├── requirements.txt
 ├── README.md
-└── .gitignore
+└── ...
 ```
-
-## 🎥 Demo Video
-
-📽️ \[Add Loom/YouTube Link Here]
 
 ---
 
-This project is a part of a hackathon run by [https://katomaran.com](https://katomaran.com)
+## ✅ Sample Outputs
 
+* Face logs: `logs/events.log`
+* Cropped face images: `logs/entries/YYYY-MM-DD/`
+* SQLite table: `logs/face_data.db`
+
+---
+
+## 📈 Unique Visitor Count
+
+You can run:
+
+```bash
+python src/unique_count.py
 ```
+
+To get total number of unique visitors detected across sessions.
+
+---
+
+## 🏁 Final Notes
+
+This project is part of a hackathon run by [https://katomaran.com](https://katomaran.com)
+
+---
 
